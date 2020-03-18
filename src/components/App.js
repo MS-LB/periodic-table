@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
-import { elements } from './_data';
-import Element from './Element';
+import React, { Component, Fragment } from "react";
+import { elements } from "./_data";
+import Element from "./Element";
 
-document.title = 'The Periodic Table of Elements';
+document.title = "The Periodic Table of Elements";
 
 class App extends Component {
   state = {
@@ -10,7 +10,7 @@ class App extends Component {
     element: {}
   };
 
-  showInfo = (num) => {
+  showInfo = num => {
     this.setState({ showInfo: true, element: elements[num] });
   };
 
@@ -36,21 +36,32 @@ class App extends Component {
 
     return (
       <div className="wrapper">
-        <h1>The Periodic Table of Elements</h1>
+        <h1>The Periodic Table of Elements Game</h1>
         <p className="">
-          Put together by{' '}
-          <a href="https://tamalweb.com" target="_blank">
-            Tamal Anwar
-          </a>{' '}
-          /{' '}
+          by{" "}
+          <a href="https://scheid.dev" target="noopener noreferrer">
+            Michael Scheid
+          </a>{" "}
+          /{" "}
           <a
-            href="https://github.com/TamalAnwar/periodic-table"
-            target="_blank">
+            href="https://github.com/MS-LB/periodic-table"
+            target="noopener noreferrer"
+          >
             Source Code
           </a>
-          /{' '}
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//tamalanwar.github.io/periodic-table/">
-            Share on Facebook
+        </p>
+        <h4>Project forked from-The Periodic Table of Elements</h4>
+        <p className="">
+          Created by{" "}
+          <a href="https://tamalweb.com" target="noopener noreferrer">
+            Tamal Anwar
+          </a>{" "}
+          /{" "}
+          <a
+            href="https://github.com/TamalAnwar/periodic-table"
+            target="noopener noreferrer"
+          >
+            Source Code
           </a>
         </p>
         <div id="table">
@@ -70,7 +81,8 @@ class App extends Component {
                 <div
                   onClick={this.closeInfo}
                   className="close-button"
-                  title="Close Info">
+                  title="Close Info"
+                >
                   Close [&times;]
                 </div>
                 <div>
@@ -81,17 +93,17 @@ class App extends Component {
                       <strong>Appearance:</strong> {appearance}
                     </div>
                   ) : (
-                    ''
+                    ""
                   )}
                   <div className="atom_info">
                     <span>Atomic Mass: {atomic_mass} | </span>
                     <span>Density: {density}</span>
-                    {molar_heat ? <span> | Molar Heat: {molar_heat}</span> : ''}
-                    {melt ? <span> | Melt: {melt}K</span> : ''}
-                    {boil ? <span> | Boil: {boil}K</span> : ''}
+                    {molar_heat ? <span> | Molar Heat: {molar_heat}</span> : ""}
+                    {melt ? <span> | Melt: {melt}K</span> : ""}
+                    {boil ? <span> | Boil: {boil}K</span> : ""}
                   </div>
                   <div>
-                    {summary} ...{' '}
+                    {summary} ...{" "}
                     <a target="_blank" href={source}>
                       Source
                     </a>
@@ -100,7 +112,7 @@ class App extends Component {
               </div>
             </Fragment>
           ) : (
-            ''
+            ""
           )}
           <Element showInfo={this.showInfo} num="5" />
           <Element showInfo={this.showInfo} num="6" />
