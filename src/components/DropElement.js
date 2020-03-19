@@ -1,56 +1,47 @@
 import React, { Component } from "react";
-import { elements } from "./_data";
+import { useDrop } from "react-dnd";
+import Element from "./Element";
 
-export default class DropElement extends Component {
-  state = {
-    hover: false,
-    showName: false
-  };
+const style = {
+  // height: "12rem",
+  // width: "12rem",
+  // marginRight: "1.5rem",
+  // marginBottom: "1.5rem",
+  // color: "white",
+  // padding: "1rem",
+  // textAlign: "center",
+  // fontSize: "1rem",
+  // lineHeight: "normal",
+  // float: "left"
+};
 
-  openInfo = event => {
-    // this.props.showInfo(this.props.num);
-  };
+const DropElement = props => {
+  const { showName, num } = props;
+  const dropSymbolId = "symbol-drop-" + num;
+  const dropNameId = "name-drop-" + num;
+  const element = (
+    <Element
+      showName={showName}
+      num={num}
+      symbolId={dropSymbolId}
+      nameId={dropNameId}
+    />
+  );
 
-  onMouseEnter = event => {
-    // How to print the name of the bin we are droping into
-    // console.log(elements[this.props.num].name);
-    this.setState({ hover: false });
-  };
+  const [{ canDrop, isOver }, drop] = useDrop({
+    accept: "element",
+    drop: () => ({ num: num, showName: showName, element: element }),
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop()
+    })
+  });
 
-  onMouseLeave = event => {
-    this.setState({ hover: false });
-  };
-
-  render() {
-    // let showName = this.props.showName;
-    let { num, showName } = this.props;
-    let element = elements[num];
-    return (
-      <div
-        title={element.name}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
-        onClick={this.openInfo}
-        // className={`element element-${num} ${element.category} ${
-        //   this.state.hover ? "active" : ""
-        // }`}
-        className={`element element-${num} ${this.state.hover ? "active" : ""}`}
-      >
-        {/* Hide the symbol and name */}
-        {showName ? (
-          <div className="symbol">{element.symbol}</div>
-        ) : (
-          <div className="symbol"> </div>
-        )}
-        {showName ? (
-          <div className="element-name">{element.name}</div>
-        ) : (
-          <div className="element-name"> </div>
-        )}
-
-        {/* <div className="symbol">{element.symbol}</div> */}
-        {/* <div className="element-name">{element.name}</div> */}
-      </div>
-    );
-  }
-}
+  return (
+    <div ref={drop} className={`element element-${num}`}>
+      {/* <Element showName={showName} num={num} /> */}
+      {element}
+    </div>
+  );
+};
+export default DropElement;

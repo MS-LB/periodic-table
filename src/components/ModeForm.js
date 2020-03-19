@@ -3,11 +3,11 @@ class ModeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      realTimeChecking: false,
-      sValue: false,
-      pValue: false,
-      dValue: false,
-      fValue: false
+      highlightHints: true,
+      sValue: true,
+      pValue: true,
+      dValue: true,
+      fValue: true
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -58,10 +58,10 @@ class ModeForm extends Component {
               name="realTimeChecking"
               value="Real Time Checking Value String"
               onChange={this.handleChange}
-              checked={this.state.realTimeChecking}
+              checked={this.state.highlightHints}
               className="form-check-input"
             />
-            Real Time Checking
+            Highlight Hints
           </label>
         </div>
 
@@ -128,6 +128,13 @@ class ModeForm extends Component {
             onSubmit={this.handleSubmit}
           >
             Submit
+          </button>
+          <button
+            className="btn btn-primary mt-2"
+            type="submit"
+            onSubmit={this.handleSubmit}
+          >
+            Reset
           </button>
         </div>
       </form>

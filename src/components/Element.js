@@ -23,7 +23,8 @@ export default class Element extends Component {
 
   render() {
     // let showName = this.props.showName;
-    let { num, showName } = this.props;
+    let { num, showName, symbolId, nameId } = this.props;
+    // console.log(symbolId);
     let element = elements[num];
     return (
       <div
@@ -38,14 +39,22 @@ export default class Element extends Component {
       >
         {/* Hide the symbol and name */}
         {showName ? (
-          <div className="symbol">{element.symbol}</div>
+          <div id={symbolId} className="symbol">
+            {element.symbol}
+          </div>
         ) : (
-          <div className="symbol"> </div>
+          <div id={symbolId} className="symbol">
+            {" "}
+          </div>
         )}
         {showName ? (
-          <div className="element-name">{element.name}</div>
+          <div id={nameId} className="element-name">
+            {element.name}
+          </div>
         ) : (
-          <div className="element-name"> </div>
+          <div id={nameId} className="element-name">
+            {" "}
+          </div>
         )}
 
         {/* <div className="symbol">{element.symbol}</div> */}
