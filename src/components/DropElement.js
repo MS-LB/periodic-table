@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { elements } from "./_data";
 
-export default class Element extends Component {
+export default class DropElement extends Component {
   state = {
     hover: false,
     showName: false

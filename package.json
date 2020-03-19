@@ -6,6 +6,8 @@
   "dependencies": {
     "gh-pages": "^2.0.1",
     "react": "^16.7.0",
+    "react-dnd": "^10.0.2",
+    "react-dnd-html5-backend": "^10.0.2",
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.3"
   },
