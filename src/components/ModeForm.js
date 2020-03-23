@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { groups } from "./groups";
+
 class ModeForm extends Component {
   constructor(props) {
     super(props);
@@ -15,25 +17,22 @@ class ModeForm extends Component {
   }
 
   handleChange(event) {
-    const prevState = this.state;
-    console.log("event ", event);
-    console.log("event.target.name ", event.target.name);
     switch (event.target.name) {
-      case "sValue":
+      case "sGroup":
         this.setState(prevState => ({ sValue: !prevState.sValue }));
         break;
-      case "pValue":
+      case "pGroup":
         this.setState(prevState => ({ pValue: !prevState.pValue }));
         break;
-      case "dValue":
+      case "dGroup":
         this.setState(prevState => ({ dValue: !prevState.dValue }));
         break;
-      case "fValue":
+      case "fGroup":
         this.setState(prevState => ({ fValue: !prevState.fValue }));
         break;
-      case "realTimeChecking":
+      case "highlightHints":
         this.setState(prevState => ({
-          realTimeChecking: !prevState.realTimeChecking
+          highlightHints: !prevState.highlightHints
         }));
         break;
 
@@ -43,9 +42,18 @@ class ModeForm extends Component {
     //this.setState({ value: false });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    console.log("submit clicked ");
+  handleSubmit() {
+    console.log("Submit clicked ");
+    // For each group that is active loop over them and check num vs symbol
+  }
+
+  handleReset() {
+    console.log("Reset clicked ");
+    // Loop over each group and delete the name and symbol
+    console.log(groups.s);
+    console.log(groups.p);
+    console.log(groups.d);
+    console.log(groups.f);
   }
 
   render() {
@@ -55,8 +63,8 @@ class ModeForm extends Component {
           <label>
             <input
               type="checkbox"
-              name="realTimeChecking"
-              value="Real Time Checking Value String"
+              name="highlightHints"
+              value="highlightHints"
               onChange={this.handleChange}
               checked={this.state.highlightHints}
               className="form-check-input"
@@ -69,8 +77,9 @@ class ModeForm extends Component {
           <label>
             <input
               type="checkbox"
-              name="sValue"
-              value="S_groups_Value_String"
+              name="sGroup"
+              id="sGroupId"
+              value="sGroup"
               onChange={this.handleChange}
               checked={this.state.sValue}
               className="form-check-input"
@@ -83,8 +92,9 @@ class ModeForm extends Component {
           <label>
             <input
               type="checkbox"
-              name="pValue"
-              value="P_groups_Value_String"
+              name="pGroup"
+              id="pGroupId"
+              value="pGroup"
               onChange={this.handleChange}
               checked={this.state.pValue}
               className="form-check-input"
@@ -97,8 +107,9 @@ class ModeForm extends Component {
           <label>
             <input
               type="checkbox"
-              name="dValue"
-              value="D_groups_Value_String"
+              name="dGroup"
+              id="dGroupId"
+              value="dGroup"
               onChange={this.handleChange}
               checked={this.state.dValue}
               className="form-check-input"
@@ -111,8 +122,9 @@ class ModeForm extends Component {
           <label>
             <input
               type="checkbox"
-              name="fValue"
-              value="F_groups_Value_String"
+              name="fGroup"
+              id="fGroupId"
+              value="fGroup"
               onChange={this.handleChange}
               checked={this.state.fValue}
               className="form-check-input"
@@ -124,15 +136,15 @@ class ModeForm extends Component {
         <div className="form-group">
           <button
             className="btn btn-primary mt-2"
-            type="submit"
-            onSubmit={this.handleSubmit}
+            type="button"
+            onClick={this.handleSubmit}
           >
             Submit
           </button>
           <button
             className="btn btn-primary mt-2"
-            type="submit"
-            onSubmit={this.handleSubmit}
+            type="button"
+            onClick={this.handleReset}
           >
             Reset
           </button>
