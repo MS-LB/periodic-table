@@ -5,11 +5,13 @@ class ModeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      highlightHints: true,
-      sValue: true,
-      pValue: true,
-      dValue: true,
-      fValue: true
+      highlightHints: props.hintsOn,
+      s: props.activeGroups[0],
+      p: props.activeGroups[1],
+      d: props.activeGroups[2],
+      f: props.activeGroups[3],
+      reset: false,
+      submit: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -17,29 +19,7 @@ class ModeForm extends Component {
   }
 
   handleChange(event) {
-    switch (event.target.name) {
-      case "sGroup":
-        this.setState(prevState => ({ sValue: !prevState.sValue }));
-        break;
-      case "pGroup":
-        this.setState(prevState => ({ pValue: !prevState.pValue }));
-        break;
-      case "dGroup":
-        this.setState(prevState => ({ dValue: !prevState.dValue }));
-        break;
-      case "fGroup":
-        this.setState(prevState => ({ fValue: !prevState.fValue }));
-        break;
-      case "highlightHints":
-        this.setState(prevState => ({
-          highlightHints: !prevState.highlightHints
-        }));
-        break;
-
-      default:
-        break;
-    }
-    //this.setState({ value: false });
+    this.props.optionHandler(event.target.name);
   }
 
   handleSubmit() {
@@ -66,7 +46,7 @@ class ModeForm extends Component {
               name="highlightHints"
               value="highlightHints"
               onChange={this.handleChange}
-              checked={this.state.highlightHints}
+              checked={this.props.hintsOn}
               className="form-check-input"
             />
             Highlight Hints
@@ -81,7 +61,7 @@ class ModeForm extends Component {
               id="sGroupId"
               value="sGroup"
               onChange={this.handleChange}
-              checked={this.state.sValue}
+              checked={this.props.activeGroups[0]}
               className="form-check-input"
             />
             S Groups
@@ -96,7 +76,7 @@ class ModeForm extends Component {
               id="pGroupId"
               value="pGroup"
               onChange={this.handleChange}
-              checked={this.state.pValue}
+              checked={this.props.activeGroups[1]}
               className="form-check-input"
             />
             P groups
@@ -111,7 +91,7 @@ class ModeForm extends Component {
               id="dGroupId"
               value="dGroup"
               onChange={this.handleChange}
-              checked={this.state.dValue}
+              checked={this.props.activeGroups[2]}
               className="form-check-input"
             />
             D groups
@@ -126,7 +106,7 @@ class ModeForm extends Component {
               id="fGroupId"
               value="fGroup"
               onChange={this.handleChange}
-              checked={this.state.fValue}
+              checked={this.props.activeGroups[1]}
               className="form-check-input"
             />
             F Groups

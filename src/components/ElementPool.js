@@ -13,6 +13,7 @@ class ElementPool extends Component {
   createSelectElements() {
     const sCheckBox = document.getElementById("sGroupId");
     console.log(sCheckBox);
+    console.log(sCheckBox);
     let list = [];
     groups.s.forEach(el => list.push(el));
     groups.p.forEach(el => list.push(el));
@@ -24,15 +25,18 @@ class ElementPool extends Component {
   render() {
     let elementList = this.createSelectElements();
     // elementList.concat(groups.s, groups.p, groups.d, groups.f);
+    console.log("in element pool:  ", this.props.activeGroups);
     console.log(elementList);
     return (
       <div className="element-pool">
-        {/* getting around ugly line that is dragged with the top element */}
-        <p> </p>
-
         {/* Getting all the elements  */}
         {elementList.map(id => (
-          <DragElement showName={true} num={id} key={id} />
+          <DragElement
+            showName={true}
+            num={id}
+            key={id}
+            hintsOn={this.props.hintsOn}
+          />
         ))}
       </div>
     );

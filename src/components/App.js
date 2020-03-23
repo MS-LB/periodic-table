@@ -9,9 +9,19 @@ import Backend from "react-dnd-html5-backend";
 document.title = "The Periodic Table of Elements";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.optionHandler = this.optionHandler.bind(this);
+  }
+
   state = {
     showInfo: false,
-    element: {}
+    element: {},
+    s: true,
+    p: true,
+    d: true,
+    f: true,
+    hintsOn: true
   };
 
   showInfo = num => {
@@ -20,6 +30,33 @@ class App extends Component {
 
   closeInfo = () => {
     this.setState({ showInfo: false });
+  };
+
+  optionHandler = name => {
+    console.log("name ", name);
+    console.log("name ", this.state);
+    switch (name) {
+      case "sGroup":
+        this.setState(prevState => ({ s: !prevState.s }));
+        break;
+      case "pGroup":
+        this.setState(prevState => ({ p: !prevState.p }));
+        break;
+      case "dGroup":
+        this.setState(prevState => ({ d: !prevState.d }));
+        break;
+      case "fGroup":
+        this.setState(prevState => ({ f: !prevState.f }));
+        break;
+      case "highlightHints":
+        this.setState(prevState => ({
+          hintsOn: !prevState.hintsOn
+        }));
+        break;
+
+      default:
+        break;
+    }
   };
 
   render() {
@@ -42,67 +79,39 @@ class App extends Component {
       <div className="wrapper">
         <header>
           <h1>The Periodic Table of Elements Game</h1>
+          <p>
+            by{" "}
+            <a href="https://scheid.dev" target="noopener noreferrer">
+              Michael Scheid
+            </a>{" "}
+            /{" "}
+            <a
+              href="https://github.com/MS-LB/periodic-table"
+              target="noopener noreferrer"
+            >
+              Source Code
+            </a>
+            <br />
+            Project forked from-The Periodic Table of Elements by{" "}
+            <a href="https://tamalweb.com" target="noopener noreferrer">
+              Tamal Anwar
+            </a>{" "}
+            /{" "}
+            <a
+              href="https://github.com/TamalAnwar/periodic-table"
+              target="noopener noreferrer"
+            >
+              Source Code
+            </a>
+          </p>
         </header>
         <section>
-          <div>
-            <ModeForm />
-          </div>
           <DndProvider backend={Backend}>
-            <div id="table">
+            <div id="table" className="main-group">
               <DropElement showInfo={this.showInfo} num="1" />
               <DropElement showInfo={this.showInfo} num="2" />
               <DropElement showInfo={this.showInfo} num="3" />
               <DropElement showInfo={this.showInfo} num="4" />
-              {/* Information Table */}
-
-              {this.state.showInfo ? (
-                <Fragment>
-                  <div id="element-box" className={`${category}`}>
-                    <div className="number">{number}</div>
-                    <div className="symbol">{symbol}</div>
-                    <div className="element-name">{name}</div>
-                  </div>
-                  <div id="information">
-                    <div
-                      onClick={this.closeInfo}
-                      className="close-button"
-                      title="Close Info"
-                    >
-                      Close [&times;]
-                    </div>
-                    <div>
-                      <h1 className="big_title">{name}</h1>
-                      <span className={`cat_name ${category}`}>{category}</span>
-                      {appearance ? (
-                        <div className="appearance">
-                          <strong>Appearance:</strong> {appearance}
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                      <div className="atom_info">
-                        <span>Atomic Mass: {atomic_mass} | </span>
-                        <span>Density: {density}</span>
-                        {molar_heat ? (
-                          <span> | Molar Heat: {molar_heat}</span>
-                        ) : (
-                          ""
-                        )}
-                        {melt ? <span> | Melt: {melt}K</span> : ""}
-                        {boil ? <span> | Boil: {boil}K</span> : ""}
-                      </div>
-                      <div>
-                        {summary} ...{" "}
-                        <a target="noopener noreferrer" href={source}>
-                          Source
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </Fragment>
-              ) : (
-                ""
-              )}
               <DropElement showInfo={this.showInfo} num="5" />
               <DropElement showInfo={this.showInfo} num="6" />
               <DropElement showInfo={this.showInfo} num="7" />
@@ -224,36 +233,33 @@ class App extends Component {
               <DropElement showInfo={this.showInfo} num="102" />
               <DropElement showInfo={this.showInfo} num="103" />
             </div>
-            <ElementPool />
+            <div className="secondary-group">
+              <ElementPool
+                optionHandler={this.optionHandler}
+                activeGroups={[
+                  this.state.s,
+                  this.state.p,
+                  this.state.d,
+                  this.state.f
+                ]}
+                hintsOn={this.state.hintsOn}
+              />
+            </div>
           </DndProvider>
         </section>
-        <footer>
-          <p>
-            by{" "}
-            <a href="https://scheid.dev" target="noopener noreferrer">
-              Michael Scheid
-            </a>{" "}
-            /{" "}
-            <a
-              href="https://github.com/MS-LB/periodic-table"
-              target="noopener noreferrer"
-            >
-              Source Code
-            </a>
-            <br />
-            Project forked from-The Periodic Table of Elements by{" "}
-            <a href="https://tamalweb.com" target="noopener noreferrer">
-              Tamal Anwar
-            </a>{" "}
-            /{" "}
-            <a
-              href="https://github.com/TamalAnwar/periodic-table"
-              target="noopener noreferrer"
-            >
-              Source Code
-            </a>
-          </p>
-        </footer>
+
+        <section className="side-info">
+          <ModeForm
+            optionHandler={this.optionHandler}
+            activeGroups={[
+              this.state.s,
+              this.state.p,
+              this.state.d,
+              this.state.f
+            ]}
+            hintsOn={this.state.hintsOn}
+          />
+        </section>
       </div>
     );
   }

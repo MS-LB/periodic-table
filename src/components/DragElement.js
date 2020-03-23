@@ -4,7 +4,7 @@ import Element from "./Element";
 import { elements } from "./_data";
 
 const DragElement = props => {
-  const { showName, num } = props;
+  const { showName, num, hintsOn } = props;
 
   // set varables for the getting
   const dragSymbolId = "symbol-drop-" + num;
@@ -24,6 +24,8 @@ const DragElement = props => {
         let symbol = document.getElementById("symbol-drop-" + dropResult.num);
         let name = document.getElementById("name-drop-" + dropResult.num);
         let hint = document.getElementsByName("highlightHints")[0];
+        console.log("hintsOn prop in DragElement: ", hintsOn);
+        console.log("hint getElementsByName in DragElement: ", hint.checked);
         if (hint.checked) {
           if (dropElement.number === dragElement.number) {
             symbol.style = "color: black";

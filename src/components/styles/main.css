@@ -213,9 +213,7 @@ body {
 
 form {
   margin-bottom: 1em;
-}
-h1 {
-  margin-bottom: -0.5em;
+  margin-left: 1em;
 }
 
 body {
@@ -231,6 +229,36 @@ body {
   display: flex;
   flex-wrap: wrap;
 }
-form {
+/* form {
+  background-color: orchid;
   margin-top: 1em;
+} */
+
+.main-group {
+  float: left;
+}
+.secondary-group {
+  float: right;
+  margin-top: 1em;
+}
+
+.side-info {
+  /* display: inline; */
+  /* background-color: red; */
+  text-align: left;
+  /* margin: 0 0 0 50px; */
+  padding: 0 0 0 80%;
+  position: relative;
+}
+
+h1 {
+  margin-bottom: -0.5em;
+}
+p {
+  font-weight: 200;
+}
+
+header {
+  margin-bottom: 2em;
+  font-size: 75%;
 }
