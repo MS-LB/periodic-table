@@ -11,9 +11,9 @@ class ElementPool extends Component {
   };
 
   createSelectElements() {
-    const sCheckBox = document.getElementById("sGroupId");
-    console.log(sCheckBox);
-    console.log(sCheckBox);
+    // const sCheckBox = document.getElementById("sGroupId");
+    // console.log(sCheckBox);
+    // console.log(sCheckBox);
     let list = [];
     groups.s.forEach(el => list.push(el));
     groups.p.forEach(el => list.push(el));

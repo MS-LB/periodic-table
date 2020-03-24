@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { groups } from "./groups";
 
 class ModeForm extends Component {
   constructor(props) {
@@ -10,30 +9,31 @@ class ModeForm extends Component {
       p: props.activeGroups[1],
       d: props.activeGroups[2],
       f: props.activeGroups[3],
-      reset: false,
-      submit: false
+      reset: props.reset,
+      submit: props.submit
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
+    this.resetHandler = this.resetHandler.bind(this);
   }
 
+  //Handlers are in parent component (App)
   handleChange(event) {
     this.props.optionHandler(event.target.name);
   }
-
-  handleSubmit() {
-    console.log("Submit clicked ");
-    // For each group that is active loop over them and check num vs symbol
+  submitHandler() {
+    this.props.submitHandler();
   }
 
-  handleReset() {
+  resetHandler() {
     console.log("Reset clicked ");
     // Loop over each group and delete the name and symbol
-    console.log(groups.s);
-    console.log(groups.p);
-    console.log(groups.d);
-    console.log(groups.f);
+    // console.log(groups.s);
+    // console.log(groups.p);
+    // console.log(groups.d);
+    // console.log(groups.f);
+    this.props.resetHandler();
   }
 
   render() {
@@ -106,7 +106,7 @@ class ModeForm extends Component {
               id="fGroupId"
               value="fGroup"
               onChange={this.handleChange}
-              checked={this.props.activeGroups[1]}
+              checked={this.props.activeGroups[3]}
               className="form-check-input"
             />
             F Groups
@@ -117,14 +117,14 @@ class ModeForm extends Component {
           <button
             className="btn btn-primary mt-2"
             type="button"
-            onClick={this.handleSubmit}
+            onClick={this.submitHandler}
           >
             Submit
           </button>
           <button
             className="btn btn-primary mt-2"
             type="button"
-            onClick={this.handleReset}
+            onClick={this.resetHandler}
           >
             Reset
           </button>

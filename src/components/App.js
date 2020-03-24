@@ -1,10 +1,12 @@
-import React, { Component, Fragment } from "react";
-import { elements } from "./_data";
+import React, { Component } from "react";
+// import { elements } from "./_data";
 import DropElement from "./DropElement";
 import ModeForm from "./ModeForm";
 import ElementPool from "./ElementPool";
 import { DndProvider } from "react-dnd";
-import Backend from "react-dnd-html5-backend";
+// import Backend from "react-dnd-html5-backend";
+import TouchBackend from "react-dnd-touch-backend";
+import { groups } from "./groups";
 
 document.title = "The Periodic Table of Elements";
 
@@ -15,21 +17,34 @@ class App extends Component {
   }
 
   state = {
-    showInfo: false,
-    element: {},
+    // showInfo: false,
+    //element: {},
     s: true,
     p: true,
     d: true,
     f: true,
-    hintsOn: true
+    hintsOn: true,
+    reset: false,
+    submit: false
   };
 
-  showInfo = num => {
-    this.setState({ showInfo: true, element: elements[num] });
+  // showInfo = num => {
+  //   this.setState({ showInfo: true, element: elements[num] });
+  // };
+
+  // closeInfo = () => {
+  //   this.setState({ showInfo: false });
+  // };
+
+  submitHandler = () => {
+    // For each group that is active loop over them and check num vs symbol
+    let tableNode = document.getElementById("table");
+    console.log(tableNode);
   };
 
-  closeInfo = () => {
-    this.setState({ showInfo: false });
+  resetHandler = () => {
+    //Loop over each group and delete the name and symbol
+    // delete and render elements again
   };
 
   optionHandler = name => {
@@ -59,179 +74,188 @@ class App extends Component {
     }
   };
 
-  render() {
-    let {
-      name,
-      summary,
-      symbol,
-      category,
-      number,
-      source,
-      appearance,
-      atomic_mass,
-      molar_heat,
-      density,
-      melt,
-      boil
-    } = this.state.element;
+  options = {
+    enableMouseEvents: true
+  };
 
+  render() {
     return (
       <div className="wrapper">
         <header>
-          <h1>The Periodic Table of Elements Game</h1>
-          <p>
-            by{" "}
-            <a href="https://scheid.dev" target="noopener noreferrer">
-              Michael Scheid
-            </a>{" "}
-            /{" "}
-            <a
-              href="https://github.com/MS-LB/periodic-table"
-              target="noopener noreferrer"
-            >
-              Source Code
-            </a>
-            <br />
-            Project forked from-The Periodic Table of Elements by{" "}
-            <a href="https://tamalweb.com" target="noopener noreferrer">
-              Tamal Anwar
-            </a>{" "}
-            /{" "}
-            <a
-              href="https://github.com/TamalAnwar/periodic-table"
-              target="noopener noreferrer"
-            >
-              Source Code
-            </a>
-          </p>
+          <div className="header-info">
+            <h1>The Periodic Table of Elements Game</h1>
+            <p>
+              by{" "}
+              <a href="https://scheid.dev" target="noopener noreferrer">
+                Michael Scheid
+              </a>{" "}
+              /{" "}
+              <a
+                href="https://github.com/MS-LB/periodic-table"
+                target="noopener noreferrer"
+              >
+                Source Code
+              </a>
+              <br />
+              Project forked from-The Periodic Table of Elements by{" "}
+              <a href="https://tamalweb.com" target="noopener noreferrer">
+                Tamal Anwar
+              </a>{" "}
+              /{" "}
+              <a
+                href="https://github.com/TamalAnwar/periodic-table"
+                target="noopener noreferrer"
+              >
+                Source Code
+              </a>
+            </p>
+          </div>
+          <section className="side-info">
+            <ModeForm
+              optionHandler={this.optionHandler}
+              activeGroups={[
+                this.state.s,
+                this.state.p,
+                this.state.d,
+                this.state.f
+              ]}
+              hintsOn={this.state.hintsOn}
+              submit={this.state.submit}
+              reset={this.state.reset}
+              submitHandler={this.submitHandler}
+              resetHandler={this.resetHandler}
+            />
+          </section>
         </header>
+
         <section>
-          <DndProvider backend={Backend}>
+          {/* <DndProvider backend={Backend}> */}
+          <DndProvider backend={TouchBackend} options={this.options}>
             <div id="table" className="main-group">
-              <DropElement showInfo={this.showInfo} num="1" />
-              <DropElement showInfo={this.showInfo} num="2" />
-              <DropElement showInfo={this.showInfo} num="3" />
-              <DropElement showInfo={this.showInfo} num="4" />
-              <DropElement showInfo={this.showInfo} num="5" />
-              <DropElement showInfo={this.showInfo} num="6" />
-              <DropElement showInfo={this.showInfo} num="7" />
-              <DropElement showInfo={this.showInfo} num="8" />
-              <DropElement showInfo={this.showInfo} num="9" />
-              <DropElement showInfo={this.showInfo} num="10" />
-              <DropElement showInfo={this.showInfo} num="11" />
-              <DropElement showInfo={this.showInfo} num="12" />
-              <DropElement showInfo={this.showInfo} num="13" />
-              <DropElement showInfo={this.showInfo} num="14" />
-              <DropElement showInfo={this.showInfo} num="15" />
-              <DropElement showInfo={this.showInfo} num="16" />
-              <DropElement showInfo={this.showInfo} num="17" />
-              <DropElement showInfo={this.showInfo} num="18" />
-              <DropElement showInfo={this.showInfo} num="19" />
-              <DropElement showInfo={this.showInfo} num="20" />
-              <DropElement showInfo={this.showInfo} num="21" />
-              <DropElement showInfo={this.showInfo} num="22" />
-              <DropElement showInfo={this.showInfo} num="23" />
-              <DropElement showInfo={this.showInfo} num="24" />
-              <DropElement showInfo={this.showInfo} num="25" />
-              <DropElement showInfo={this.showInfo} num="26" />
-              <DropElement showInfo={this.showInfo} num="27" />
-              <DropElement showInfo={this.showInfo} num="28" />
-              <DropElement showInfo={this.showInfo} num="29" />
-              <DropElement showInfo={this.showInfo} num="30" />
-              <DropElement showInfo={this.showInfo} num="31" />
-              <DropElement showInfo={this.showInfo} num="32" />
-              <DropElement showInfo={this.showInfo} num="33" />
-              <DropElement showInfo={this.showInfo} num="34" />
-              <DropElement showInfo={this.showInfo} num="35" />
-              <DropElement showInfo={this.showInfo} num="36" />
-              <DropElement showInfo={this.showInfo} num="37" />
-              <DropElement showInfo={this.showInfo} num="38" />
-              <DropElement showInfo={this.showInfo} num="39" />
-              <DropElement showInfo={this.showInfo} num="40" />
-              <DropElement showInfo={this.showInfo} num="41" />
-              <DropElement showInfo={this.showInfo} num="42" />
-              <DropElement showInfo={this.showInfo} num="43" />
-              <DropElement showInfo={this.showInfo} num="44" />
-              <DropElement showInfo={this.showInfo} num="45" />
-              <DropElement showInfo={this.showInfo} num="46" />
-              <DropElement showInfo={this.showInfo} num="47" />
-              <DropElement showInfo={this.showInfo} num="48" />
-              <DropElement showInfo={this.showInfo} num="49" />
-              <DropElement showInfo={this.showInfo} num="50" />
-              <DropElement showInfo={this.showInfo} num="51" />
-              <DropElement showInfo={this.showInfo} num="52" />
-              <DropElement showInfo={this.showInfo} num="53" />
-              <DropElement showInfo={this.showInfo} num="54" />
-              <DropElement showInfo={this.showInfo} num="55" />
-              <DropElement showInfo={this.showInfo} num="56" />
-              <DropElement showInfo={this.showInfo} num="57" />
+              <DropElement num="1" />
+              <DropElement num="2" />
+              <DropElement num="3" />
+              <DropElement num="4" />
+              <DropElement num="5" />
+              <DropElement num="6" />
+              <DropElement num="7" />
+              <DropElement num="8" />
+              <DropElement num="9" />
+              <DropElement num="10" />
+              <DropElement num="11" />
+              <DropElement num="12" />
+              <DropElement num="13" />
+              <DropElement num="14" />
+              <DropElement num="15" />
+              <DropElement num="16" />
+              <DropElement num="17" />
+              <DropElement num="18" />
+              <DropElement num="19" />
+              <DropElement num="20" />
+              <DropElement num="21" />
+              <DropElement num="22" />
+              <DropElement num="23" />
+              <DropElement num="24" />
+              <DropElement num="25" />
+              <DropElement num="26" />
+              <DropElement num="27" />
+              <DropElement num="28" />
+              <DropElement num="29" />
+              <DropElement num="30" />
+              <DropElement num="31" />
+              <DropElement num="32" />
+              <DropElement num="33" />
+              <DropElement num="34" />
+              <DropElement num="35" />
+              <DropElement num="36" />
+              <DropElement num="37" />
+              <DropElement num="38" />
+              <DropElement num="39" />
+              <DropElement num="40" />
+              <DropElement num="41" />
+              <DropElement num="42" />
+              <DropElement num="43" />
+              <DropElement num="44" />
+              <DropElement num="45" />
+              <DropElement num="46" />
+              <DropElement num="47" />
+              <DropElement num="48" />
+              <DropElement num="49" />
+              <DropElement num="50" />
+              <DropElement num="51" />
+              <DropElement num="52" />
+              <DropElement num="53" />
+              <DropElement num="54" />
+              <DropElement num="55" />
+              <DropElement num="56" />
+              <DropElement num="57" />
 
               {/* Lanthanoids split */}
-              <DropElement showInfo={this.showInfo} num="72" />
-              <DropElement showInfo={this.showInfo} num="73" />
-              <DropElement showInfo={this.showInfo} num="74" />
-              <DropElement showInfo={this.showInfo} num="75" />
-              <DropElement showInfo={this.showInfo} num="76" />
-              <DropElement showInfo={this.showInfo} num="77" />
-              <DropElement showInfo={this.showInfo} num="78" />
-              <DropElement showInfo={this.showInfo} num="79" />
-              <DropElement showInfo={this.showInfo} num="80" />
-              <DropElement showInfo={this.showInfo} num="81" />
-              <DropElement showInfo={this.showInfo} num="82" />
-              <DropElement showInfo={this.showInfo} num="83" />
-              <DropElement showInfo={this.showInfo} num="84" />
-              <DropElement showInfo={this.showInfo} num="85" />
-              <DropElement showInfo={this.showInfo} num="86" />
-              <DropElement showInfo={this.showInfo} num="87" />
-              <DropElement showInfo={this.showInfo} num="88" />
-              <DropElement showInfo={this.showInfo} num="89" />
+              <DropElement num="72" />
+              <DropElement num="73" />
+              <DropElement num="74" />
+              <DropElement num="75" />
+              <DropElement num="76" />
+              <DropElement num="77" />
+              <DropElement num="78" />
+              <DropElement num="79" />
+              <DropElement num="80" />
+              <DropElement num="81" />
+              <DropElement num="82" />
+              <DropElement num="83" />
+              <DropElement num="84" />
+              <DropElement num="85" />
+              <DropElement num="86" />
+              <DropElement num="87" />
+              <DropElement num="88" />
+              <DropElement num="89" />
               {/* Actinoids split */}
-              <DropElement showInfo={this.showInfo} num="104" />
-              <DropElement showInfo={this.showInfo} num="105" />
-              <DropElement showInfo={this.showInfo} num="106" />
-              <DropElement showInfo={this.showInfo} num="107" />
-              <DropElement showInfo={this.showInfo} num="108" />
-              <DropElement showInfo={this.showInfo} num="109" />
-              <DropElement showInfo={this.showInfo} num="110" />
-              <DropElement showInfo={this.showInfo} num="111" />
-              <DropElement showInfo={this.showInfo} num="112" />
-              <DropElement showInfo={this.showInfo} num="113" />
-              <DropElement showInfo={this.showInfo} num="114" />
-              <DropElement showInfo={this.showInfo} num="115" />
-              <DropElement showInfo={this.showInfo} num="116" />
-              <DropElement showInfo={this.showInfo} num="117" />
-              <DropElement showInfo={this.showInfo} num="118" />
-              <DropElement showInfo={this.showInfo} num="119" />
+              <DropElement num="104" />
+              <DropElement num="105" />
+              <DropElement num="106" />
+              <DropElement num="107" />
+              <DropElement num="108" />
+              <DropElement num="109" />
+              <DropElement num="110" />
+              <DropElement num="111" />
+              <DropElement num="112" />
+              <DropElement num="113" />
+              <DropElement num="114" />
+              <DropElement num="115" />
+              <DropElement num="116" />
+              <DropElement num="117" />
+              <DropElement num="118" />
+              <DropElement num="119" />
               {/* Lanthenoids */}
-              <DropElement showInfo={this.showInfo} num="58" />
-              <DropElement showInfo={this.showInfo} num="59" />
-              <DropElement showInfo={this.showInfo} num="60" />
-              <DropElement showInfo={this.showInfo} num="61" />
-              <DropElement showInfo={this.showInfo} num="62" />
-              <DropElement showInfo={this.showInfo} num="63" />
-              <DropElement showInfo={this.showInfo} num="64" />
-              <DropElement showInfo={this.showInfo} num="65" />
-              <DropElement showInfo={this.showInfo} num="66" />
-              <DropElement showInfo={this.showInfo} num="67" />
-              <DropElement showInfo={this.showInfo} num="68" />
-              <DropElement showInfo={this.showInfo} num="69" />
-              <DropElement showInfo={this.showInfo} num="70" />
-              <DropElement showInfo={this.showInfo} num="71" />
+              <DropElement num="58" />
+              <DropElement num="59" />
+              <DropElement num="60" />
+              <DropElement num="61" />
+              <DropElement num="62" />
+              <DropElement num="63" />
+              <DropElement num="64" />
+              <DropElement num="65" />
+              <DropElement num="66" />
+              <DropElement num="67" />
+              <DropElement num="68" />
+              <DropElement num="69" />
+              <DropElement num="70" />
+              <DropElement num="71" />
               {/* Actionoids */}
-              <DropElement showInfo={this.showInfo} num="90" />
-              <DropElement showInfo={this.showInfo} num="91" />
-              <DropElement showInfo={this.showInfo} num="92" />
-              <DropElement showInfo={this.showInfo} num="93" />
-              <DropElement showInfo={this.showInfo} num="94" />
-              <DropElement showInfo={this.showInfo} num="95" />
-              <DropElement showInfo={this.showInfo} num="96" />
-              <DropElement showInfo={this.showInfo} num="97" />
-              <DropElement showInfo={this.showInfo} num="98" />
-              <DropElement showInfo={this.showInfo} num="99" />
-              <DropElement showInfo={this.showInfo} num="100" />
-              <DropElement showInfo={this.showInfo} num="101" />
-              <DropElement showInfo={this.showInfo} num="102" />
-              <DropElement showInfo={this.showInfo} num="103" />
+              <DropElement num="90" />
+              <DropElement num="91" />
+              <DropElement num="92" />
+              <DropElement num="93" />
+              <DropElement num="94" />
+              <DropElement num="95" />
+              <DropElement num="96" />
+              <DropElement num="97" />
+              <DropElement num="98" />
+              <DropElement num="99" />
+              <DropElement num="100" />
+              <DropElement num="101" />
+              <DropElement num="102" />
+              <DropElement num="103" />
             </div>
             <div className="secondary-group">
               <ElementPool
@@ -246,19 +270,6 @@ class App extends Component {
               />
             </div>
           </DndProvider>
-        </section>
-
-        <section className="side-info">
-          <ModeForm
-            optionHandler={this.optionHandler}
-            activeGroups={[
-              this.state.s,
-              this.state.p,
-              this.state.d,
-              this.state.f
-            ]}
-            hintsOn={this.state.hintsOn}
-          />
         </section>
       </div>
     );
