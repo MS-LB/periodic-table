@@ -25,26 +25,44 @@ class App extends Component {
     f: true,
     hintsOn: true,
     reset: false,
-    submit: false
+    submit: false,
+    score: 0
   };
 
-  // showInfo = num => {
-  //   this.setState({ showInfo: true, element: elements[num] });
-  // };
-
-  // closeInfo = () => {
-  //   this.setState({ showInfo: false });
-  // };
+  calculateCorrectElements = () => {
+    let numberCorrect = 0;
+    let tableNode = document.getElementById("table");
+    console.log(tableNode);
+    let children = tableNode.childNodes;
+    children.forEach(element => {
+      if (
+        element.childNodes[0].childNodes[1].innerHTML ===
+        element.childNodes[0].title
+      ) {
+        numberCorrect += 1;
+      }
+    });
+    return numberCorrect;
+  };
 
   submitHandler = () => {
     // For each group that is active loop over them and check num vs symbol
-    let tableNode = document.getElementById("table");
-    console.log(tableNode);
+    let numberCorrect = this.calculateCorrectElements();
+    this.setState({ submit: true, score: numberCorrect });
   };
 
   resetHandler = () => {
-    //Loop over each group and delete the name and symbol
-    // delete and render elements again
+    let tableNode = document.getElementById("table");
+    console.log(tableNode);
+    let children = tableNode.childNodes;
+
+    children.forEach(element => {
+      if (element.childNodes[0].childNodes[1].innerHTML !== "") {
+        element.childNodes[0].childNodes[0].innerHTML = "";
+        element.childNodes[0].childNodes[1].innerHTML = "";
+      }
+    });
+    this.setState({ submit: false, score: 0 });
   };
 
   optionHandler = name => {
@@ -78,7 +96,58 @@ class App extends Component {
     enableMouseEvents: true
   };
 
+  appendToList(groupState, group, list) {
+    if (groupState) {
+      console.log(groups.s);
+      group.forEach(i => {
+        list.push(i);
+      });
+    }
+    return list;
+  }
+
+  createDropList = () => {
+    // Creating a list to render the correct element boxes in the periodic table
+    let dropElementList = [];
+    // The table follows a standard format therefore the elements must be created in the correct order
+    let bounds = [1, 57, 72, 89, 104, 119, 58, 71, 90, 103];
+    let active = [];
+    active = this.appendToList(this.state.s, groups.s, active);
+    active = this.appendToList(this.state.p, groups.p, active);
+    active = this.appendToList(this.state.d, groups.d, active);
+    active = this.appendToList(this.state.f, groups.f, active);
+
+    /* 
+    1 to 57
+    Lanthanoids split  72 to 89
+    Actinoids split  104 to 119
+    Lanthenoids  58 to 71 
+    Actionoids   90 to 103 
+    */
+
+    let lower = 0;
+    let upper = 1;
+    while (upper < bounds.length) {
+      for (let i = bounds[lower]; i <= bounds[upper]; i++) {
+        let dropElementProps = { num: i, active: false };
+        // dropElementList.push(i);=
+        if (active.includes(i)) {
+          dropElementProps.active = true;
+        }
+        dropElementList.push(dropElementProps);
+      }
+      lower += 2;
+      upper += 2;
+    }
+    return dropElementList;
+  };
+
   render() {
+    // make variables to render the elements in the correct order
+
+    let dropElementList = this.createDropList();
+    // console.log("droplist length:  ", dropElementList.length);
+
     return (
       <div className="wrapper">
         <header>
@@ -124,6 +193,7 @@ class App extends Component {
               reset={this.state.reset}
               submitHandler={this.submitHandler}
               resetHandler={this.resetHandler}
+              score={this.state.score}
             />
           </section>
         </header>
@@ -132,130 +202,13 @@ class App extends Component {
           {/* <DndProvider backend={Backend}> */}
           <DndProvider backend={TouchBackend} options={this.options}>
             <div id="table" className="main-group">
-              <DropElement num="1" />
-              <DropElement num="2" />
-              <DropElement num="3" />
-              <DropElement num="4" />
-              <DropElement num="5" />
-              <DropElement num="6" />
-              <DropElement num="7" />
-              <DropElement num="8" />
-              <DropElement num="9" />
-              <DropElement num="10" />
-              <DropElement num="11" />
-              <DropElement num="12" />
-              <DropElement num="13" />
-              <DropElement num="14" />
-              <DropElement num="15" />
-              <DropElement num="16" />
-              <DropElement num="17" />
-              <DropElement num="18" />
-              <DropElement num="19" />
-              <DropElement num="20" />
-              <DropElement num="21" />
-              <DropElement num="22" />
-              <DropElement num="23" />
-              <DropElement num="24" />
-              <DropElement num="25" />
-              <DropElement num="26" />
-              <DropElement num="27" />
-              <DropElement num="28" />
-              <DropElement num="29" />
-              <DropElement num="30" />
-              <DropElement num="31" />
-              <DropElement num="32" />
-              <DropElement num="33" />
-              <DropElement num="34" />
-              <DropElement num="35" />
-              <DropElement num="36" />
-              <DropElement num="37" />
-              <DropElement num="38" />
-              <DropElement num="39" />
-              <DropElement num="40" />
-              <DropElement num="41" />
-              <DropElement num="42" />
-              <DropElement num="43" />
-              <DropElement num="44" />
-              <DropElement num="45" />
-              <DropElement num="46" />
-              <DropElement num="47" />
-              <DropElement num="48" />
-              <DropElement num="49" />
-              <DropElement num="50" />
-              <DropElement num="51" />
-              <DropElement num="52" />
-              <DropElement num="53" />
-              <DropElement num="54" />
-              <DropElement num="55" />
-              <DropElement num="56" />
-              <DropElement num="57" />
-
-              {/* Lanthanoids split */}
-              <DropElement num="72" />
-              <DropElement num="73" />
-              <DropElement num="74" />
-              <DropElement num="75" />
-              <DropElement num="76" />
-              <DropElement num="77" />
-              <DropElement num="78" />
-              <DropElement num="79" />
-              <DropElement num="80" />
-              <DropElement num="81" />
-              <DropElement num="82" />
-              <DropElement num="83" />
-              <DropElement num="84" />
-              <DropElement num="85" />
-              <DropElement num="86" />
-              <DropElement num="87" />
-              <DropElement num="88" />
-              <DropElement num="89" />
-              {/* Actinoids split */}
-              <DropElement num="104" />
-              <DropElement num="105" />
-              <DropElement num="106" />
-              <DropElement num="107" />
-              <DropElement num="108" />
-              <DropElement num="109" />
-              <DropElement num="110" />
-              <DropElement num="111" />
-              <DropElement num="112" />
-              <DropElement num="113" />
-              <DropElement num="114" />
-              <DropElement num="115" />
-              <DropElement num="116" />
-              <DropElement num="117" />
-              <DropElement num="118" />
-              <DropElement num="119" />
-              {/* Lanthenoids */}
-              <DropElement num="58" />
-              <DropElement num="59" />
-              <DropElement num="60" />
-              <DropElement num="61" />
-              <DropElement num="62" />
-              <DropElement num="63" />
-              <DropElement num="64" />
-              <DropElement num="65" />
-              <DropElement num="66" />
-              <DropElement num="67" />
-              <DropElement num="68" />
-              <DropElement num="69" />
-              <DropElement num="70" />
-              <DropElement num="71" />
-              {/* Actionoids */}
-              <DropElement num="90" />
-              <DropElement num="91" />
-              <DropElement num="92" />
-              <DropElement num="93" />
-              <DropElement num="94" />
-              <DropElement num="95" />
-              <DropElement num="96" />
-              <DropElement num="97" />
-              <DropElement num="98" />
-              <DropElement num="99" />
-              <DropElement num="100" />
-              <DropElement num="101" />
-              <DropElement num="102" />
-              <DropElement num="103" />
+              {dropElementList.map(dropElementProps => (
+                <DropElement
+                  num={dropElementProps.num}
+                  key={dropElementProps.num}
+                  active={dropElementProps.active}
+                />
+              ))}
             </div>
             <div className="secondary-group">
               <ElementPool

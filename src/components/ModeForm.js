@@ -64,7 +64,7 @@ class ModeForm extends Component {
               checked={this.props.activeGroups[0]}
               className="form-check-input"
             />
-            S Groups
+            S Block
           </label>
         </div>
 
@@ -79,7 +79,7 @@ class ModeForm extends Component {
               checked={this.props.activeGroups[1]}
               className="form-check-input"
             />
-            P groups
+            P Block
           </label>
         </div>
 
@@ -94,7 +94,7 @@ class ModeForm extends Component {
               checked={this.props.activeGroups[2]}
               className="form-check-input"
             />
-            D groups
+            D Block
           </label>
         </div>
 
@@ -109,8 +109,14 @@ class ModeForm extends Component {
               checked={this.props.activeGroups[3]}
               className="form-check-input"
             />
-            F Groups
+            F Block
           </label>
+        </div>
+
+        <div>
+          {this.props.submit ? (
+            <div id="score-box">Score: {this.props.score}</div>
+          ) : null}
         </div>
 
         <div className="form-group">

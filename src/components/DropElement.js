@@ -3,7 +3,7 @@ import { useDrop } from "react-dnd";
 import Element from "./Element";
 
 const DropElement = props => {
-  const { showName, num } = props;
+  const { showName, num, active } = props;
   const dropSymbolId = "symbol-drop-" + num;
   const dropNameId = "name-drop-" + num;
   const element = (
@@ -12,6 +12,7 @@ const DropElement = props => {
       num={num}
       symbolId={dropSymbolId}
       nameId={dropNameId}
+      active={active}
     />
   );
 

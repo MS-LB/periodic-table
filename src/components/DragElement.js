@@ -54,6 +54,7 @@ const DragElement = props => {
         num={num}
         symbolId={dragSymbolId}
         nameId={dragNameId}
+        active={true}
       />
     </div>
   );

@@ -23,9 +23,14 @@ export default class Element extends Component {
 
   render() {
     // let showName = this.props.showName;
-    let { num, showName, symbolId, nameId } = this.props;
+    let { num, showName, symbolId, nameId, active } = this.props;
     // console.log(symbolId);
     let element = elements[num];
+
+    let styles = {
+      // this is the normal color #8eb1e7
+      backgroundColor: "#cdddf4"
+    };
     return (
       <div
         title={element.name}
@@ -36,6 +41,8 @@ export default class Element extends Component {
         //   this.state.hover ? "active" : ""
         // }`}
         className={`element element-${num} ${this.state.hover ? "active" : ""}`}
+        // style={active ? null : "background-color:black"}
+        style={active ? null : styles}
       >
         {/* Hide the symbol and name */}
         {showName ? (
