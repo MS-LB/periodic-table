@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-// import { elements } from "./_data";
 import DropElement from "./DropElement";
 import ModeForm from "./ModeForm";
 import ElementPool from "./ElementPool";
 import { DndProvider } from "react-dnd";
-// import Backend from "react-dnd-html5-backend";
 import TouchBackend from "react-dnd-touch-backend";
 import { groups } from "./groups";
 
@@ -17,8 +15,6 @@ class App extends Component {
   }
 
   state = {
-    // showInfo: false,
-    //element: {},
     s: true,
     p: true,
     d: true,
@@ -51,6 +47,32 @@ class App extends Component {
     this.setState({ submit: true, score: numberCorrect });
   };
 
+  groupReset = group => {
+    let tableNode = document.getElementById("table");
+    console.log(tableNode);
+    let children = tableNode.childNodes;
+
+    let nonActiveGroupNumbers = [];
+
+    nonActiveGroupNumbers = this.appendToList(
+      true,
+      group,
+      nonActiveGroupNumbers
+    );
+
+    children.forEach(element => {
+      let currentNumber = parseInt(element.className.split("-")[1]);
+      if (nonActiveGroupNumbers.includes(currentNumber)) {
+        if (element.childNodes[0].childNodes[1].innerHTML !== "") {
+          element.childNodes[0].childNodes[0].innerHTML = "";
+          element.childNodes[0].childNodes[1].innerHTML = "";
+        }
+      }
+    });
+
+    // this.setState({ submit: false, score: 0 });
+  };
+
   resetHandler = () => {
     let tableNode = document.getElementById("table");
     console.log(tableNode);
@@ -70,15 +92,19 @@ class App extends Component {
     console.log("name ", this.state);
     switch (name) {
       case "sGroup":
+        this.groupReset(groups.s);
         this.setState(prevState => ({ s: !prevState.s }));
         break;
       case "pGroup":
+        this.groupReset(groups.p);
         this.setState(prevState => ({ p: !prevState.p }));
         break;
       case "dGroup":
+        this.groupReset(groups.d);
         this.setState(prevState => ({ d: !prevState.d }));
         break;
       case "fGroup":
+        this.groupReset(groups.f);
         this.setState(prevState => ({ f: !prevState.f }));
         break;
       case "highlightHints":
@@ -207,6 +233,7 @@ class App extends Component {
                   num={dropElementProps.num}
                   key={dropElementProps.num}
                   active={dropElementProps.active}
+                  showName={false}
                 />
               ))}
             </div>

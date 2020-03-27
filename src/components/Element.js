@@ -27,6 +27,13 @@ export default class Element extends Component {
     // console.log(symbolId);
     let element = elements[num];
 
+    // console.log("active " + active);
+    // console.log("show name " + showName);
+    // if (!active && showName) {
+    //   showName = false;
+    // }
+    // console.log("show name2 " + showName);
+
     let styles = {
       // this is the normal color #8eb1e7
       backgroundColor: "#cdddf4"
@@ -45,7 +52,7 @@ export default class Element extends Component {
         style={active ? null : styles}
       >
         {/* Hide the symbol and name */}
-        {showName ? (
+        {showName && active ? (
           <div id={symbolId} className="symbol">
             {element.symbol}
           </div>
@@ -54,7 +61,7 @@ export default class Element extends Component {
             {" "}
           </div>
         )}
-        {showName ? (
+        {showName && active ? (
           <div id={nameId} className="element-name">
             {element.name}
           </div>

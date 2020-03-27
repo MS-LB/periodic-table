@@ -56,6 +56,8 @@ class ElementPool extends Component {
             num={id}
             key={id}
             hintsOn={this.props.hintsOn}
+            activeGroups={this.props.activeGroups}
+            showName={true}
           />
         ))}
       </div>
