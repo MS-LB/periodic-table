@@ -25,6 +25,9 @@ class App extends Component {
     score: 0
   };
 
+  /**
+   * Calculates the number of Elements in their correct locations
+   */
   calculateCorrectElements = () => {
     let numberCorrect = 0;
     let tableNode = document.getElementById("table");
@@ -36,17 +39,25 @@ class App extends Component {
         element.childNodes[0].title
       ) {
         numberCorrect += 1;
+      } else {
+        element.childNodes[0].style = "background-color: orange";
       }
     });
     return numberCorrect;
   };
 
+  /**
+   * Updates the score
+   */
   submitHandler = () => {
     // For each group that is active loop over them and check num vs symbol
     let numberCorrect = this.calculateCorrectElements();
     this.setState({ submit: true, score: numberCorrect });
   };
 
+  /**
+   * Clears all
+   */
   groupReset = group => {
     let tableNode = document.getElementById("table");
     console.log(tableNode);
@@ -67,10 +78,22 @@ class App extends Component {
           element.childNodes[0].childNodes[0].innerHTML = "";
           element.childNodes[0].childNodes[1].innerHTML = "";
         }
+        element.childNodes[0].style = "background-color: #cdddf4";
+        console.log("color changed");
       }
     });
 
     // this.setState({ submit: false, score: 0 });
+  };
+
+  // Fix background color for non-active groups after submit&reset:
+  // Active     :  #8eb1e7
+  // non-Active : "#cdddf4"
+  resetGroupColor = () => {
+    if (!this.state.s) this.groupReset(groups.s);
+    if (!this.state.p) this.groupReset(groups.p);
+    if (!this.state.d) this.groupReset(groups.d);
+    if (!this.state.f) this.groupReset(groups.f);
   };
 
   resetHandler = () => {
@@ -83,7 +106,18 @@ class App extends Component {
         element.childNodes[0].childNodes[0].innerHTML = "";
         element.childNodes[0].childNodes[1].innerHTML = "";
       }
+
+      // Clear the color change in wrong locations
+      element.childNodes[0].style = "background-color: #8eb1e7";
     });
+
+    // Reset the non-active groups
+    this.resetGroupColor();
+    // this.optionHandler(s);
+    // this.optionHandler(p);
+    // this.optionHandler(s);
+    // this.optionHandler(s);
+
     this.setState({ submit: false, score: 0 });
   };
 
@@ -112,7 +146,6 @@ class App extends Component {
           hintsOn: !prevState.hintsOn
         }));
         break;
-
       default:
         break;
     }
@@ -156,7 +189,7 @@ class App extends Component {
     while (upper < bounds.length) {
       for (let i = bounds[lower]; i <= bounds[upper]; i++) {
         let dropElementProps = { num: i, active: false };
-        // dropElementList.push(i);=
+
         if (active.includes(i)) {
           dropElementProps.active = true;
         }
@@ -172,7 +205,6 @@ class App extends Component {
     // make variables to render the elements in the correct order
 
     let dropElementList = this.createDropList();
-    // console.log("droplist length:  ", dropElementList.length);
 
     return (
       <div className="wrapper">
