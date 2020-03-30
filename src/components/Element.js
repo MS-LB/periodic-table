@@ -40,7 +40,7 @@ export default class Element extends Component {
     };
     return (
       <div
-        title={element.name}
+        title={showName && active ? element.name : "Hidden Element"}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         onClick={this.openInfo}
