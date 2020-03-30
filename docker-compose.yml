@@ -1,6 +1,6 @@
 version: "3"
 services:
-  periodic-game:
+  web:
     build: .
     ports:
       - "80:80"
