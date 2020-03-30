@@ -49,7 +49,16 @@ class ModeForm extends Component {
               checked={this.props.hintsOn}
               className="form-check-input"
             />
-            Highlight Hints
+            Hints
+            <span className="info-icon">
+              &#9432;
+              <span className="tooltiptext">
+                Hints: Elements in incorrect locations will have red text
+                <br />
+                <br />
+                Blocks: Enable or disable various sections of the periodic table
+              </span>
+            </span>
           </label>
         </div>
 
