@@ -5,6 +5,7 @@ import ElementPool from "./ElementPool";
 import { DndProvider } from "react-dnd";
 import TouchBackend from "react-dnd-touch-backend";
 import { groups } from "./groups";
+import { elements } from "./_data";
 
 document.title = "The Periodic Table of Elements";
 
@@ -12,6 +13,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.optionHandler = this.optionHandler.bind(this);
+    this.createActiveElementsList = this.createActiveElementsList.bind(this);
   }
 
   state = {
@@ -27,22 +29,42 @@ class App extends Component {
 
   /**
    * Calculates the number of Elements in their correct locations
+   * Also display the correct answers
    */
   calculateCorrectElements = () => {
     let numberCorrect = 0;
     let tableNode = document.getElementById("table");
-    console.log(tableNode);
+
     let children = tableNode.childNodes;
-    children.forEach(element => {
+
+    let active = this.createActiveElementsList();
+
+    for (let i = 0; i < children.length; i++) {
+      let element = children[i];
+
+      let elementNumber = parseInt(
+        element.childNodes[0].childNodes[1].id.split("-")[2]
+      );
+
+      // Skip non active groups
+      if (!active.includes(elementNumber)) {
+        continue;
+      }
+
       if (
         element.childNodes[0].childNodes[1].innerHTML ===
-        element.childNodes[0].title
+        elements[elementNumber].name
       ) {
         numberCorrect += 1;
       } else {
         element.childNodes[0].style = "background-color: orange";
+        element.childNodes[0].childNodes[0].innerHTML =
+          elements[elementNumber].symbol;
+        element.childNodes[0].childNodes[1].innerHTML =
+          elements[elementNumber].name;
       }
-    });
+    }
+
     return numberCorrect;
   };
 
@@ -50,7 +72,6 @@ class App extends Component {
    * Updates the score
    */
   submitHandler = () => {
-    // For each group that is active loop over them and check num vs symbol
     let numberCorrect = this.calculateCorrectElements();
     this.setState({ submit: true, score: numberCorrect });
   };
@@ -165,16 +186,28 @@ class App extends Component {
     return list;
   }
 
-  createDropList = () => {
-    // Creating a list to render the correct element boxes in the periodic table
-    let dropElementList = [];
-    // The table follows a standard format therefore the elements must be created in the correct order
-    let bounds = [1, 57, 72, 89, 104, 119, 58, 71, 90, 103];
+  createActiveElementsList = () => {
     let active = [];
     active = this.appendToList(this.state.s, groups.s, active);
     active = this.appendToList(this.state.p, groups.p, active);
     active = this.appendToList(this.state.d, groups.d, active);
     active = this.appendToList(this.state.f, groups.f, active);
+    return active;
+  };
+
+  createDropList = () => {
+    // Creating a list to render the correct element boxes in the periodic table
+    let dropElementList = [];
+    // The table follows a standard format therefore the elements must be created in the correct order
+    let bounds = [1, 57, 72, 89, 104, 119, 58, 71, 90, 103];
+    // let active = [];
+    // active = this.appendToList(this.state.s, groups.s, active);
+    // active = this.appendToList(this.state.p, groups.p, active);
+    // active = this.appendToList(this.state.d, groups.d, active);
+    // active = this.appendToList(this.state.f, groups.f, active);
+    let active = this.createActiveElementsList();
+
+    // this.setState({ activeList: active });
 
     /* 
     1 to 57

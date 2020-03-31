@@ -41,6 +41,7 @@ export default class Element extends Component {
     return (
       <div
         title={showName && active ? element.name : "Hidden Element"}
+        data-name={element.name}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         onClick={this.openInfo}
