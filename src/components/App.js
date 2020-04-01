@@ -9,13 +9,19 @@ import { elements } from "./_data";
 
 document.title = "The Periodic Table of Elements";
 
+/**
+ *
+ */
 class App extends Component {
   constructor(props) {
     super(props);
-    this.optionHandler = this.optionHandler.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.createActiveElementsList = this.createActiveElementsList.bind(this);
   }
 
+  /**
+   * Maintain the score as well as checkbox and button booleans
+   */
   state = {
     s: true,
     p: true,
@@ -29,7 +35,7 @@ class App extends Component {
 
   /**
    * Calculates the number of Elements in their correct locations
-   * Also display the correct answers
+   * Also display changes the background color of incorrect answers
    */
   calculateCorrectElements = () => {
     let numberCorrect = 0;
@@ -77,7 +83,7 @@ class App extends Component {
   };
 
   /**
-   * Clears all
+   * Clears the name and symbol of groups of elements
    */
   groupReset = group => {
     let tableNode = document.getElementById("table");
@@ -100,16 +106,14 @@ class App extends Component {
           element.childNodes[0].childNodes[1].innerHTML = "";
         }
         element.childNodes[0].style = "background-color: #cdddf4";
-        console.log("color changed");
       }
     });
-
-    // this.setState({ submit: false, score: 0 });
+    this.setState({ submit: false, score: 0 });
   };
 
-  // Fix background color for non-active groups after submit&reset:
-  // Active     :  #8eb1e7
-  // non-Active : "#cdddf4"
+  /**
+   * Intermediary function that to reset the non-active group colors
+   */
   resetGroupColor = () => {
     if (!this.state.s) this.groupReset(groups.s);
     if (!this.state.p) this.groupReset(groups.p);
@@ -117,6 +121,9 @@ class App extends Component {
     if (!this.state.f) this.groupReset(groups.f);
   };
 
+  /**
+   * This function changes the periodic table back to the original state
+   */
   resetHandler = () => {
     let tableNode = document.getElementById("table");
     console.log(tableNode);
@@ -127,24 +134,22 @@ class App extends Component {
         element.childNodes[0].childNodes[0].innerHTML = "";
         element.childNodes[0].childNodes[1].innerHTML = "";
       }
-
       // Clear the color change in wrong locations
       element.childNodes[0].style = "background-color: #8eb1e7";
     });
 
-    // Reset the non-active groups
     this.resetGroupColor();
-    // this.optionHandler(s);
-    // this.optionHandler(p);
-    // this.optionHandler(s);
-    // this.optionHandler(s);
-
     this.setState({ submit: false, score: 0 });
   };
 
-  optionHandler = name => {
-    console.log("name ", name);
-    console.log("name ", this.state);
+  /**
+   * This function changes the state of the group or hints based on the checkbox selected
+   * @param {string} name -name of the checkbox that was clicked
+   * Outcome:
+   * 1. The state is updated
+   * 2. The group is cleared
+   */
+  handleCheckboxChange = name => {
     switch (name) {
       case "sGroup":
         this.groupReset(groups.s);
@@ -176,6 +181,13 @@ class App extends Component {
     enableMouseEvents: true
   };
 
+  /**
+   * Returns an array with a group of elements added if the group is active
+   * @param {boolean} groupState
+   * @param {Array} group   - element numbers within the group
+   * @param {Array} list    - active element numbers or empty
+   * @returns {Array} All active elements
+   */
   appendToList(groupState, group, list) {
     if (groupState) {
       console.log(groups.s);
@@ -186,6 +198,10 @@ class App extends Component {
     return list;
   }
 
+  /**
+   * Returns all active elements
+   * @returns {Array} All active elements
+   */
   createActiveElementsList = () => {
     let active = [];
     active = this.appendToList(this.state.s, groups.s, active);
@@ -195,27 +211,24 @@ class App extends Component {
     return active;
   };
 
+  /**
+   * Returns a list to render the correct element boxes in the periodic table
+   * @returns {Array} element numbers in the correct order based on table contruction
+   */
   createDropList = () => {
-    // Creating a list to render the correct element boxes in the periodic table
     let dropElementList = [];
-    // The table follows a standard format therefore the elements must be created in the correct order
-    let bounds = [1, 57, 72, 89, 104, 119, 58, 71, 90, 103];
-    // let active = [];
-    // active = this.appendToList(this.state.s, groups.s, active);
-    // active = this.appendToList(this.state.p, groups.p, active);
-    // active = this.appendToList(this.state.d, groups.d, active);
-    // active = this.appendToList(this.state.f, groups.f, active);
-    let active = this.createActiveElementsList();
 
-    // this.setState({ activeList: active });
-
-    /* 
-    1 to 57
-    Lanthanoids split  72 to 89
-    Actinoids split  104 to 119
-    Lanthenoids  58 to 71 
-    Actionoids   90 to 103 
+    /* The table follows a standard format therefore the elements 
+       must be created in the correct order.
+      1 to 57
+      Lanthanoids split  72 to 89
+      Actinoids split  104 to 119
+      Lanthenoids  58 to 71 
+      Actionoids   90 to 103 
     */
+    let bounds = [1, 57, 72, 89, 104, 119, 58, 71, 90, 103];
+
+    let active = this.createActiveElementsList();
 
     let lower = 0;
     let upper = 1;
@@ -235,16 +248,13 @@ class App extends Component {
   };
 
   render() {
-    // make variables to render the elements in the correct order
-
     let dropElementList = this.createDropList();
-
     return (
       <div className="wrapper">
         <header>
           <div className="header-info">
             <h1>The Periodic Table of Elements Game</h1>
-            <p>
+            <p className="header-by-line">
               by{" "}
               <a href="https://scheid.dev" target="noopener noreferrer">
                 Michael Scheid
@@ -272,7 +282,7 @@ class App extends Component {
           </div>
           <section className="side-info">
             <ModeForm
-              optionHandler={this.optionHandler}
+              handleCheckboxChange={this.handleCheckboxChange}
               activeGroups={[
                 this.state.s,
                 this.state.p,
@@ -304,7 +314,7 @@ class App extends Component {
             </div>
             <div className="secondary-group">
               <ElementPool
-                optionHandler={this.optionHandler}
+                handleCheckboxChange={this.handleCheckboxChange}
                 activeGroups={[
                   this.state.s,
                   this.state.p,

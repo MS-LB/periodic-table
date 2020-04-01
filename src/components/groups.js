@@ -1,3 +1,18 @@
+/**
+ * Groups Object holds 4 key-value pairs
+ * The keys are the block letters: s,p,d,f
+ * The values are the element numbers in those blocks
+ *
+ * The keys (or blocks) partition the table into
+ * groups roughly corasponding outer shell of the elements
+ *
+ * General outer shell configurations
+ * s block elements: ns1-2 where n=2-7
+ * p block elements: ns1 np6 to ns2 np6
+ * d block elements: (n-1)d1-10 ns1-2  where n=4-7.
+ * f block elements: (n-2) f 0-14 (n-1) d0-1 ns2
+ * https://classnotes.org.in/class11/chemistry/classification-elements-periodicity-properties/division-elements-s-p-d-f-block/
+ */
 module.exports = {
   groups: {
     s: [1, 2, 3, 4, 11, 12, 19, 20, 37, 38, 55, 56, 87, 88],

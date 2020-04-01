@@ -2,6 +2,9 @@ import React from "react";
 import { useDrop } from "react-dnd";
 import Element from "./Element";
 
+/**
+ *
+ */
 const DropElement = props => {
   const { showName, num, active } = props;
   const dropSymbolId = "symbol-drop-" + num;
@@ -27,7 +30,6 @@ const DropElement = props => {
 
   return (
     <div ref={drop} className={`element element-${num}`}>
-      {/* <Element showName={showName} num={num} /> */}
       {element}
     </div>
   );

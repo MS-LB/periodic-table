@@ -40,6 +40,12 @@ body {
   background-color: #e78eb1;
 }
 
+.number {
+  float: left;
+  font-size: 0.5vw;
+  position: absolute;
+}
+
 .symbol {
   font-weight: bold;
   text-align: center;
@@ -50,6 +56,68 @@ body {
 .element-name {
   font-size: 0.7vw;
   text-align: center;
+}
+
+#element-box .symbol {
+  font-size: 5vw;
+}
+
+#element-box .number {
+  font-size: 1vw;
+}
+
+#element-box .element-name {
+  font-size: 1.5vw;
+}
+
+#element-box {
+  grid-column: 3/5;
+  grid-row: 2/4;
+  margin: 0;
+  padding: 0.2vw;
+  overflow: hidden;
+}
+
+/* Information Table  */
+#information {
+  grid-column: 5/13;
+  grid-row: 2/4;
+  padding: 0.5vw;
+  padding-top: 0;
+  font-size: 1vw;
+  max-height: 10vw;
+  overflow-y: scroll;
+}
+
+.big_title {
+  display: inline-block;
+}
+
+.cat_name {
+  border-radius: 3px;
+  padding: 0 5px;
+  margin-left: 5px;
+  top: -0.7vw;
+  position: relative;
+}
+
+.close-button {
+  float: right;
+  cursor: pointer;
+  color: #333333;
+}
+
+.close-button:hover {
+  color: black;
+}
+
+.appearance {
+  margin-bottom: 0.5vw;
+}
+
+.atom_info {
+  margin-bottom: 0.5vw;
+  color: #998100;
 }
 
 /* Helium to the top right  */
@@ -76,9 +144,74 @@ body {
   visibility: hidden;
 }
 
+/* Categories and Groups */
+
+/* Noble Gas  */
+.noble {
+  background: #f3d2e8;
+}
+
+/* Alkali Metal  */
+.alkali {
+  background: #f88379;
+}
+
+/* Alkaline Earth Metal  */
+.alkaline {
+  background: #ffc3a0;
+}
+
+/* Transition Metal  */
+.transition {
+  background: #e9ff08;
+}
+
+/* Polyatomic Non Metal  */
+.polyatomic {
+  background: #a3d2d5;
+}
+
+/* Diatomic Non Metal  */
+.diatomic {
+  background: #a3d5bf;
+}
+
+/* Post Transition Metal  */
+.post-transition {
+  background: #8eb1e7;
+}
+
+/* Metalloid  */
+.metalloid {
+  background: #5ed89c;
+}
+
+/* Lanthanide  */
+.lanthanide {
+  background: #cc99ff;
+  /* Put a space to seperate the split table  */
+  /* margin-top: 2.5vw; */
+}
+
+/* Actinide  */
+.actinide {
+  background: #ad87bd;
+}
+
+/* The Unknown Element  */
+.unknown {
+  background: #ccffff;
+}
+
 /* Disable the top space for the first lathenide which sits inside the table  */
 .element-57 {
   margin: 0;
+}
+
+/* When in the hover state  */
+.active {
+  background: #fff;
+  /* border-color: yellow; */
 }
 
 form {
@@ -135,7 +268,7 @@ header {
   float: left;
   margin-bottom: 2em;
   margin-right: 5em;
-  /* font-size: 75%; */
+  font-size: 75%;
 }
 
 .info-icon {
@@ -146,62 +279,34 @@ header {
   color: #e78eb1;
 }
 
+/* https://www.w3schools.com/css/css_tooltip.asp */
+
+/* Tooltip text */
 .tooltiptext {
   visibility: hidden;
   width: 15em;
+  /* background-color: gray; */
   border: black dotted;
   color: black;
   text-align: center;
   padding: 1em;
   margin-left: 2em;
   border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: -1;
 }
 
-/* Show the tooltip text when you mouse over the .info-icon */
+/* Show the tooltip text when you mouse over the tooltip container */
 .info-icon:hover .tooltiptext {
   visibility: visible;
 }
 
-@media only screen and (min-width: 350px) and (max-width: 767px) {
-  body {
-  }
-
-  h1 {
-    margin-bottom: -0.5em;
-  }
-
-  header {
-    font-size: 45%;
-    margin: auto;
-  }
-
-  .header-info {
-    float: left;
-    margin-bottom: 2em;
-    margin-right: 5em;
-    font-size: 75%;
-  }
-
-  .header-by-line {
-    /* font-weight: 400; */
-    font-size: 4%;
-  }
-
-  .info-icon {
-    margin-left: 1em;
-  }
-
-  form {
-    margin-bottom: 1em;
-    margin-left: 1em;
-  }
-
-  .side-info {
-    text-align: left;
-  }
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
 }
 
+/* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) and (max-width: 992px) {
 }

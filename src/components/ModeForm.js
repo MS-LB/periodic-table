@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 
+/**
+ * This component holds the form checkboxes, submit and reset buttons
+ * The checkboxes = true, the hints or blocks are displayed
+ *
+ * Handler funtions are in the parent component (App.js)
+ */
 class ModeForm extends Component {
   constructor(props) {
     super(props);
@@ -13,26 +19,29 @@ class ModeForm extends Component {
       submit: props.submit
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this.resetHandler = this.resetHandler.bind(this);
   }
 
-  //Handlers are in parent component (App)
-  handleChange(event) {
-    this.props.optionHandler(event.target.name);
+  /**
+   *  Pass the event name to App.js for handling the change
+   */
+  handleCheckboxChange(event) {
+    this.props.handleCheckboxChange(event.target.name);
   }
+
+  /**
+   * Submit is handled in App.js
+   */
   submitHandler() {
     this.props.submitHandler();
   }
 
+  /**
+   * Submit is handled in App.js
+   */
   resetHandler() {
-    console.log("Reset clicked ");
-    // Loop over each group and delete the name and symbol
-    // console.log(groups.s);
-    // console.log(groups.p);
-    // console.log(groups.d);
-    // console.log(groups.f);
     this.props.resetHandler();
   }
 
@@ -45,7 +54,7 @@ class ModeForm extends Component {
               type="checkbox"
               name="highlightHints"
               value="highlightHints"
-              onChange={this.handleChange}
+              onChange={this.handleCheckboxChange}
               checked={this.props.hintsOn}
               className="form-check-input"
             />
@@ -69,7 +78,7 @@ class ModeForm extends Component {
               name="sGroup"
               id="sGroupId"
               value="sGroup"
-              onChange={this.handleChange}
+              onChange={this.handleCheckboxChange}
               checked={this.props.activeGroups[0]}
               className="form-check-input"
             />
@@ -84,7 +93,7 @@ class ModeForm extends Component {
               name="pGroup"
               id="pGroupId"
               value="pGroup"
-              onChange={this.handleChange}
+              onChange={this.handleCheckboxChange}
               checked={this.props.activeGroups[1]}
               className="form-check-input"
             />
@@ -99,7 +108,7 @@ class ModeForm extends Component {
               name="dGroup"
               id="dGroupId"
               value="dGroup"
-              onChange={this.handleChange}
+              onChange={this.handleCheckboxChange}
               checked={this.props.activeGroups[2]}
               className="form-check-input"
             />
@@ -114,7 +123,7 @@ class ModeForm extends Component {
               name="fGroup"
               id="fGroupId"
               value="fGroup"
-              onChange={this.handleChange}
+              onChange={this.handleCheckboxChange}
               checked={this.props.activeGroups[3]}
               className="form-check-input"
             />

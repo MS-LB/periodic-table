@@ -25,6 +25,9 @@ function isActive(num, activeGroups) {
   return active.includes(num);
 }
 
+/**
+ *
+ */
 const DragElement = props => {
   const { showName, num, hintsOn, activeGroups } = props;
 
@@ -39,9 +42,6 @@ const DragElement = props => {
         let dragElement = elements[num];
         let dropElement = elements[dropResult.num];
 
-        //
-        //console.log(`You dropped ${item.num} into ${dropResult.num}!`);
-        //console.log(`Drop num ${dropResult.num} `);
         let elementIsActive = isActive(dropResult.num, activeGroups);
         console.log("elementIsActive   " + elementIsActive);
         if (!elementIsActive) return;

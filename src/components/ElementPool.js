@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import DragElement from "./DragElement";
 import { groups } from "./groups";
 
+/**
+ *  This component holds all the elements that need to be dragged to the correct locations
+ *  The element list is created by looking at the active sections of the periodic table.
+ *  The active elements are shuffled before they are created
+ */
 class ElementPool extends Component {
   state = {
     s: this.props.activeGroups[0],
@@ -10,9 +15,11 @@ class ElementPool extends Component {
     f: this.props.activeGroups[3]
   };
 
-  // JavaScript implementation of the Durstenfeld shuffle, an optimized version of Fisher-Yates
-  // Laurens Holst & ashleedawg
-  // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+  /**
+   * JavaScript implementation of the Durstenfeld shuffle, an optimized version of Fisher-Yates
+   * Laurens Holst & ashleedawg
+   * https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+   */
   shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -20,10 +27,12 @@ class ElementPool extends Component {
     }
   }
 
+  /**
+   * This function simply checks which group is active to create an array
+   * The array holds the element numbers of all active elements
+   * @returns {Array} All active elements
+   */
   createSelectElements() {
-    // const sCheckBox = document.getElementById("sGroupId");
-    // console.log(sCheckBox);
-    console.log(this.state);
     let list = [];
     if (this.props.activeGroups[0]) {
       groups.s.forEach(el => list.push(el));
@@ -44,9 +53,6 @@ class ElementPool extends Component {
 
   render() {
     let elementList = this.createSelectElements();
-    // elementList.concat(groups.s, groups.p, groups.d, groups.f);
-    console.log("in element pool:  ", this.props.activeGroups);
-    console.log("list.length ", elementList.length);
     return (
       <div className="element-pool">
         {/* Getting all the elements  */}
@@ -57,7 +63,6 @@ class ElementPool extends Component {
             key={id}
             hintsOn={this.props.hintsOn}
             activeGroups={this.props.activeGroups}
-            showName={true}
           />
         ))}
       </div>
