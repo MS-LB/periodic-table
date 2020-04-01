@@ -23,7 +23,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    // this.createActiveElementsList = this.createActiveElementsList.bind(this);
   }
 
   /**
@@ -31,10 +30,6 @@ class App extends Component {
    */
   state = {
     activeGroups: [true, true, true, true],
-    s: true,
-    p: true,
-    d: true,
-    f: true,
     hintsOn: true,
     reset: false,
     submit: false,
@@ -99,7 +94,12 @@ class App extends Component {
 
     let nonActiveGroupNumbers = [];
 
-    nonActiveGroupNumbers = appendToList(true, groups, nonActiveGroupNumbers);
+    let nonActiveGroups = this.state.activeGroups.map(item => !item);
+    nonActiveGroupNumbers = createActiveElementsList(
+      nonActiveGroups,
+      groups,
+      nonActiveGroupNumbers
+    );
 
     children.forEach(element => {
       let currentNumber = parseInt(element.className.split("-")[1]);
@@ -118,11 +118,6 @@ class App extends Component {
    * Intermediary function that to reset the non-active group colors
    */
   resetGroupColor = () => {
-    if (!this.state.s) this.groupReset(groups.s);
-    if (!this.state.p) this.groupReset(groups.p);
-    if (!this.state.d) this.groupReset(groups.d);
-    if (!this.state.f) this.groupReset(groups.f);
-
     if (!this.state.activeGroups[0]) this.groupReset(groups.s);
     if (!this.state.activeGroups[1]) this.groupReset(groups.p);
     if (!this.state.activeGroups[2]) this.groupReset(groups.d);
@@ -160,19 +155,47 @@ class App extends Component {
     switch (name) {
       case "sGroup":
         this.groupReset(groups.s);
-        this.setState(prevState => ({ s: !prevState.s }));
+        this.setState(prevState => ({
+          activeGroups: [
+            !prevState.activeGroups[0],
+            prevState.activeGroups[1],
+            prevState.activeGroups[2],
+            prevState.activeGroups[3]
+          ]
+        }));
         break;
       case "pGroup":
         this.groupReset(groups.p);
-        this.setState(prevState => ({ p: !prevState.p }));
+        this.setState(prevState => ({
+          activeGroups: [
+            prevState.activeGroups[0],
+            !prevState.activeGroups[1],
+            prevState.activeGroups[2],
+            prevState.activeGroups[3]
+          ]
+        }));
         break;
       case "dGroup":
         this.groupReset(groups.d);
-        this.setState(prevState => ({ d: !prevState.d }));
+        this.setState(prevState => ({
+          activeGroups: [
+            prevState.activeGroups[0],
+            prevState.activeGroups[1],
+            !prevState.activeGroups[2],
+            prevState.activeGroups[3]
+          ]
+        }));
         break;
       case "fGroup":
         this.groupReset(groups.f);
-        this.setState(prevState => ({ f: !prevState.f }));
+        this.setState(prevState => ({
+          activeGroups: [
+            prevState.activeGroups[0],
+            prevState.activeGroups[1],
+            prevState.activeGroups[2],
+            !prevState.activeGroups[3]
+          ]
+        }));
         break;
       case "highlightHints":
         this.setState(prevState => ({
@@ -231,6 +254,10 @@ class App extends Component {
         <header>
           <div className="header-info">
             <h1>The Periodic Table of Elements Game</h1>
+            <h2 className="mobile-notice">
+              Mobile version is a work in progress... please use a large screen
+              device
+            </h2>
             <p className="header-by-line">
               by{" "}
               <a href="https://scheid.dev" target="noopener noreferrer">
@@ -260,12 +287,6 @@ class App extends Component {
           <section className="side-info">
             <ModeForm
               handleCheckboxChange={this.handleCheckboxChange}
-              // activeGroups={[
-              //   this.state.s,
-              //   this.state.p,
-              //   this.state.d,
-              //   this.state.f
-              // ]}
               activeGroups={this.state.activeGroups}
               hintsOn={this.state.hintsOn}
               submit={this.state.submit}
@@ -293,12 +314,6 @@ class App extends Component {
             <div className="secondary-group">
               <ElementPool
                 handleCheckboxChange={this.handleCheckboxChange}
-                // activeGroups={[
-                //   this.state.s,
-                //   this.state.p,
-                //   this.state.d,
-                //   this.state.f
-                // ]}
                 activeGroups={this.state.activeGroups}
                 hintsOn={this.state.hintsOn}
               />
