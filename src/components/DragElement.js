@@ -5,26 +5,6 @@ import { elements } from "./_data";
 import { groups } from "./groups";
 import { createActiveElementsList } from "./common";
 
-//todo make util. same fun in app.js
-// function appendToList(groupState, group, list) {
-//   if (groupState) {
-//     group.forEach(i => {
-//       list.push(i);
-//     });
-//   }
-//   return list;
-// }
-
-// todo make util. (almost) same fun in app.js
-// function isActive(num, activeGroups) {
-//   let active = [];
-//   active = appendToList(activeGroups[0], groups.s, active);
-//   active = appendToList(activeGroups[1], groups.p, active);
-//   active = appendToList(activeGroups[2], groups.d, active);
-//   active = appendToList(activeGroups[3], groups.f, active);
-//   return active.includes(num);
-// }
-
 /**
  * This is a wrapper component around the Element component
  * This component is the child of the ElementPool
@@ -74,6 +54,7 @@ const DragElement = props => {
           symbol.style = "color: black";
           name.style = "color: black";
         }
+
         symbol.innerText = dragElement.symbol;
         name.innerText = dragElement.name;
       }
