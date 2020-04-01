@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { elements } from "./_data";
 
 /**
+ * Element component is the lowest level component
  *
+ * Display all element boxes (Drag and Drop elements)
+ * Hide all info for the target elements (the Drop elements)
+ * If active then it contains the symbol and name of the element
+ * If not active then it is a blank div
  */
 export default class Element extends Component {
   state = {
@@ -28,9 +33,6 @@ export default class Element extends Component {
     };
 
     return (
-      // Display all element boxes (Drag and Drop elements)
-      // Hide all info for the target elements (the Drop elements)
-
       // This is the outer wrapper of the element
       <div
         title={showName && active ? element.name : "Hidden Element"}

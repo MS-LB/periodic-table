@@ -6,23 +6,31 @@ import { DndProvider } from "react-dnd";
 import TouchBackend from "react-dnd-touch-backend";
 import { groups } from "./groups";
 import { elements } from "./_data";
+import { appendToList, createActiveElementsList } from "./common";
 
 document.title = "The Periodic Table of Elements";
 
 /**
+ * This is the root component that also contains much of the logic
+ *
+ * Direct Child components: ModeForm, DropElement, ElementPool
+ *
+ * Logic or functionally this component contains:
+ * Submit, Reset and checkbox changes
  *
  */
 class App extends Component {
   constructor(props) {
     super(props);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    this.createActiveElementsList = this.createActiveElementsList.bind(this);
+    // this.createActiveElementsList = this.createActiveElementsList.bind(this);
   }
 
   /**
    * Maintain the score as well as checkbox and button booleans
    */
   state = {
+    activeGroups: [true, true, true, true],
     s: true,
     p: true,
     d: true,
@@ -43,7 +51,7 @@ class App extends Component {
 
     let children = tableNode.childNodes;
 
-    let active = this.createActiveElementsList();
+    let active = createActiveElementsList(this.state.activeGroups, groups);
 
     for (let i = 0; i < children.length; i++) {
       let element = children[i];
@@ -92,11 +100,7 @@ class App extends Component {
 
     let nonActiveGroupNumbers = [];
 
-    nonActiveGroupNumbers = this.appendToList(
-      true,
-      group,
-      nonActiveGroupNumbers
-    );
+    nonActiveGroupNumbers = appendToList(true, groups, nonActiveGroupNumbers);
 
     children.forEach(element => {
       let currentNumber = parseInt(element.className.split("-")[1]);
@@ -119,6 +123,11 @@ class App extends Component {
     if (!this.state.p) this.groupReset(groups.p);
     if (!this.state.d) this.groupReset(groups.d);
     if (!this.state.f) this.groupReset(groups.f);
+
+    if (!this.state.activeGroups[0]) this.groupReset(groups.s);
+    if (!this.state.activeGroups[1]) this.groupReset(groups.p);
+    if (!this.state.activeGroups[2]) this.groupReset(groups.d);
+    if (!this.state.activeGroups[3]) this.groupReset(groups.f);
   };
 
   /**
@@ -188,28 +197,28 @@ class App extends Component {
    * @param {Array} list    - active element numbers or empty
    * @returns {Array} All active elements
    */
-  appendToList(groupState, group, list) {
-    if (groupState) {
-      console.log(groups.s);
-      group.forEach(i => {
-        list.push(i);
-      });
-    }
-    return list;
-  }
+  // appendToList(groupState, group, list) {
+  //   if (groupState) {
+  //     console.log(groups.s);
+  //     group.forEach(i => {
+  //       list.push(i);
+  //     });
+  //   }
+  //   return list;
+  // }
 
   /**
    * Returns all active elements
    * @returns {Array} All active elements
    */
-  createActiveElementsList = () => {
-    let active = [];
-    active = this.appendToList(this.state.s, groups.s, active);
-    active = this.appendToList(this.state.p, groups.p, active);
-    active = this.appendToList(this.state.d, groups.d, active);
-    active = this.appendToList(this.state.f, groups.f, active);
-    return active;
-  };
+  // createActiveElementsList = () => {
+  //   let active = [];
+  //   active = this.appendToList(this.state.s, groups.s, active);
+  //   active = this.appendToList(this.state.p, groups.p, active);
+  //   active = this.appendToList(this.state.d, groups.d, active);
+  //   active = this.appendToList(this.state.f, groups.f, active);
+  //   return active;
+  // };
 
   /**
    * Returns a list to render the correct element boxes in the periodic table
@@ -228,7 +237,9 @@ class App extends Component {
     */
     let bounds = [1, 57, 72, 89, 104, 119, 58, 71, 90, 103];
 
-    let active = this.createActiveElementsList();
+    console.log(this.state.activeGroups);
+    console.log(groups);
+    let active = createActiveElementsList(this.state.activeGroups, groups);
 
     let lower = 0;
     let upper = 1;
@@ -283,12 +294,13 @@ class App extends Component {
           <section className="side-info">
             <ModeForm
               handleCheckboxChange={this.handleCheckboxChange}
-              activeGroups={[
-                this.state.s,
-                this.state.p,
-                this.state.d,
-                this.state.f
-              ]}
+              // activeGroups={[
+              //   this.state.s,
+              //   this.state.p,
+              //   this.state.d,
+              //   this.state.f
+              // ]}
+              activeGroups={this.state.activeGroups}
               hintsOn={this.state.hintsOn}
               submit={this.state.submit}
               reset={this.state.reset}
@@ -315,12 +327,13 @@ class App extends Component {
             <div className="secondary-group">
               <ElementPool
                 handleCheckboxChange={this.handleCheckboxChange}
-                activeGroups={[
-                  this.state.s,
-                  this.state.p,
-                  this.state.d,
-                  this.state.f
-                ]}
+                // activeGroups={[
+                //   this.state.s,
+                //   this.state.p,
+                //   this.state.d,
+                //   this.state.f
+                // ]}
+                activeGroups={this.state.activeGroups}
                 hintsOn={this.state.hintsOn}
               />
             </div>

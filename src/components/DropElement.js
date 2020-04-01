@@ -3,7 +3,8 @@ import { useDrop } from "react-dnd";
 import Element from "./Element";
 
 /**
- *
+ * Wrapper Component for elements in the periodic table.
+ * They are initally all "hidden elements" - The names and symbols are hidden
  */
 const DropElement = props => {
   const { showName, num, active } = props;
