@@ -99,6 +99,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   /* flex-direction: row; */
+  margin-left: 10vw;
 }
 form {
   margin-top: 1em;
@@ -163,45 +164,68 @@ header {
 .info-icon:hover .tooltiptext {
   visibility: visible;
 }
+.mobile-notice {
+  visibility: hidden;
+  width: 15em;
+  border: black dotted;
+  color: black;
+  text-align: center;
+  padding: 1em;
+  margin-top: 3em;
+  margin-left: 3.4em;
+  border-radius: 6px;
+  position: absolute;
+  z-index: -1;
+}
 
-@media only screen and (min-width: 350px) and (max-width: 767px) {
-  body {
+@media only screen and (min-width: 680px) and (max-width: 767px) {
+  .mobile-notice {
+    visibility: visible;
   }
-
-  h1 {
-    margin-bottom: -0.5em;
-  }
-
-  header {
-    font-size: 45%;
-    margin: auto;
-  }
-
-  .header-info {
-    float: left;
-    margin-bottom: 2em;
-    margin-right: 5em;
-    font-size: 75%;
-  }
-
-  .header-by-line {
-    /* font-weight: 400; */
-    font-size: 4%;
-  }
-
-  .info-icon {
-    margin-left: 1em;
-  }
-
-  form {
-    margin-bottom: 1em;
-    margin-left: 1em;
-  }
-
-  .side-info {
-    text-align: left;
+  .element-pool {
+    max-width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: row; */
+    margin-left: 20vw;
+    margin-right: 10vw;
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 992px) {
+@media only screen and (min-width: 500px) and (max-width: 680px) {
+  .mobile-notice {
+    visibility: visible;
+
+    width: 13em;
+    border: black dotted;
+    color: black;
+    text-align: center;
+    padding: 1em;
+    margin-top: 8em;
+    margin-left: 3.2em;
+    border-radius: 6px;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .element-pool {
+    max-width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: row; */
+    margin-left: 80vw;
+  }
+}
+
+@media only screen and (max-width: 499px) {
+  .mobile-notice {
+    visibility: visible;
+  }
+  .element-pool {
+    max-width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: row; */
+    margin-left: 30vw;
+  }
 }
