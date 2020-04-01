@@ -95,7 +95,6 @@ class App extends Component {
    */
   groupReset = group => {
     let tableNode = document.getElementById("table");
-    console.log(tableNode);
     let children = tableNode.childNodes;
 
     let nonActiveGroupNumbers = [];
@@ -135,7 +134,6 @@ class App extends Component {
    */
   resetHandler = () => {
     let tableNode = document.getElementById("table");
-    console.log(tableNode);
     let children = tableNode.childNodes;
 
     children.forEach(element => {
@@ -191,36 +189,6 @@ class App extends Component {
   };
 
   /**
-   * Returns an array with a group of elements added if the group is active
-   * @param {boolean} groupState
-   * @param {Array} group   - element numbers within the group
-   * @param {Array} list    - active element numbers or empty
-   * @returns {Array} All active elements
-   */
-  // appendToList(groupState, group, list) {
-  //   if (groupState) {
-  //     console.log(groups.s);
-  //     group.forEach(i => {
-  //       list.push(i);
-  //     });
-  //   }
-  //   return list;
-  // }
-
-  /**
-   * Returns all active elements
-   * @returns {Array} All active elements
-   */
-  // createActiveElementsList = () => {
-  //   let active = [];
-  //   active = this.appendToList(this.state.s, groups.s, active);
-  //   active = this.appendToList(this.state.p, groups.p, active);
-  //   active = this.appendToList(this.state.d, groups.d, active);
-  //   active = this.appendToList(this.state.f, groups.f, active);
-  //   return active;
-  // };
-
-  /**
    * Returns a list to render the correct element boxes in the periodic table
    * @returns {Array} element numbers in the correct order based on table contruction
    */
@@ -237,8 +205,6 @@ class App extends Component {
     */
     let bounds = [1, 57, 72, 89, 104, 119, 58, 71, 90, 103];
 
-    console.log(this.state.activeGroups);
-    console.log(groups);
     let active = createActiveElementsList(this.state.activeGroups, groups);
 
     let lower = 0;

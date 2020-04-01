@@ -24,8 +24,6 @@ function appendToList(groupState, group, list) {
  * @returns {Array} All active elements
  */
 function createActiveElementsList(activeGroups, groups) {
-  console.log(activeGroups);
-  console.log(groups);
   let active = [];
   active = appendToList(activeGroups[0], groups.s, active);
   active = appendToList(activeGroups[1], groups.p, active);

@@ -41,8 +41,6 @@ const DragElement = props => {
         let name = document.getElementById("name-drop-" + dropResult.num);
 
         if (props.hintsOn) {
-          console.log("symbol.style.color   " + symbol.style.color);
-
           if (dropElement.number === dragElement.number) {
             symbol.style = "color: black";
             name.style = "color: black";
