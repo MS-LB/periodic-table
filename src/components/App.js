@@ -6,9 +6,9 @@ import { DndProvider } from "react-dnd";
 import TouchBackend from "react-dnd-touch-backend";
 import { groups } from "./groups";
 import { elements } from "./_data";
-import { appendToList, createActiveElementsList } from "./common";
+import { createActiveElementsList } from "./common";
 
-document.title = "The Periodic Table of Elements";
+document.title = "P-Table Memory Game";
 
 /**
  * This is the root component that also contains much of the logic
@@ -253,7 +253,7 @@ class App extends Component {
       <div className="wrapper">
         <header>
           <div className="header-info">
-            <h1>The Periodic Table of Elements Game</h1>
+            <h1>Periodic Table Memory Game</h1>
             <h2 className="mobile-notice">
               Mobile version is a work in progress... please use a large screen
               device
