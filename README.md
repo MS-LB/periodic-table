@@ -1,3 +1,18 @@
+# Periodic Table Memory Game
+
+Drag and drop elements on a blank periodic table. Clicking submit changes the color of any incorrect answer and displays the number of correctly placed elements. You can focus on memorizing select sections of the periodic table by unchecking any section you want to ignore.
+
+[See it in Action!](http://3.101.47.167/)
+
+S block of elements - showing 4 wrong answers
+![Periodic Table Game](/images/game_1.png)
+
+S & P block of elements with Hints.
+Hints: The text of any wrong answer is changed to red when dropped.
+![Periodic Table Game](/images/game_2.png)
+
+# Below is the Info on tamalanwar's project - The origional README
+
 # The Periodic Table of Elements
 
 Made with CSS Grid, React and Science!
@@ -6,7 +21,7 @@ Made with CSS Grid, React and Science!
 
 [Blog Post: How I made The Periodic Table with CSS Grid and React](https://tamalweb.com/periodic-table-reactjs)
 
-![Periodic Table](https://raw.githubusercontent.com/TamalAnwar/periodic-table/master/periodic_table_react1.png)
+![Periodic Table](/images/periodic_table_react1.png)
 
 ## How it was made?
 
